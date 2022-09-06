@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Components/LootTable/Loot/Loot.gd" type="Script" id=1]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "Loot 2"
+script = ExtResource( 1 )
+chance = 0.5
+min_drop = 1
+max_drop = 1

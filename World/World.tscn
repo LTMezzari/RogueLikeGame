@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://UI/PositionTracker/PositionTracker.tscn" type="PackedScene" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 159.948, 88.5954 )
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 159.948, 88.5954 )
+
+[node name="PositionTracker" parent="." instance=ExtResource( 2 )]
+anchor_right = 0.066
+margin_left = 1.0
+margin_right = 32.0
+margin_bottom = 14.0
+target_path = NodePath("../Player")
