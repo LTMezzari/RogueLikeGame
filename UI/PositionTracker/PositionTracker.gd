@@ -11,8 +11,9 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	if (target == null):
+		self.text = ""
 		return
-	self.text = "(" + str(target.position.x) +", " + str(target.position.y) + ")"
+	_update_text(target.position)
 	pass
 
 func _set_target(new_target: Node2D) -> void:
@@ -21,6 +22,13 @@ func _set_target(new_target: Node2D) -> void:
 	pass
 
 func _update_process_status(is_enabled: bool) -> void:
-	#set_process(is_enabled)
-	set_physics_process(is_enabled)
+	var isDebug = OS.is_debug_build()
+	var should_enable = is_enabled && isDebug
+	visible = isDebug
+	#set_process(should_enable)
+	set_physics_process(should_enable)
+	pass
+
+func _update_text(position: Vector2) -> void:
+	self.text = "(" + str(position.x) +", " + str(position.y) + ")"
 	pass

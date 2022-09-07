@@ -75,6 +75,8 @@ func _handle_attack_state(_delta: float) -> void:
 	pass
 
 func _update_moving_blend(direction: Vector2) -> void:
+	if (direction == Vector2.ZERO):
+		return
 	_animation_tree["parameters/Idle/blend_position"] = direction
 	_animation_tree["parameters/Roll/blend_position"] = direction
 	_animation_tree["parameters/Run/blend_position"] = direction

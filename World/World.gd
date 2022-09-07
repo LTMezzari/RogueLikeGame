@@ -1,5 +1,7 @@
 extends Node2D
 
+const ExitScene = preload("res://Components/Exit/Exit.tscn")
+
 export(Rect2) var borders: Rect2 = Rect2(1, 1, 38, 21)
 export(int) var steps: int = 200
 
@@ -15,20 +17,20 @@ func _generate_level() -> void:
 	var walker = RoomWalker.new(Vector2(ceil(dimensions.x / 2), ceil(dimensions.y / 2)), borders)
 	var map = walker.walk(steps)
 	
-	var player = $Player
+	var player = $YSort/Player
 	player.position = map.front() * 32
 	
-	var exit = $Exit
-	#add_child_below_node(player, exit)
-	#$CanvasLayer/ExitTracker.target = exit
+	var exit = ExitScene.instance()
+	$YSort.add_child(exit)
+	$CanvasLayer/ExitTracker.target = exit
 	exit.position = walker.get_end_room().position * 32
 	exit.connect("on_exit_reached", self, "_reset_world")
 	
 	walker.queue_free()
 	_minimap.map = map
 	_minimap.markers = [
-		Minimap.Marker.new(player),
-		Minimap.Marker.new(exit),
+		Minimap.Marker.new(player, Color.green),
+		Minimap.Marker.new(exit, Color.red),
 	]
 	for location in map:
 		_tile_map.set_cellv(location, -1)

@@ -24,7 +24,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Components/LootTable/LootTable.gd"
 }, {
-"base": "ViewportContainer",
+"base": "Node2D",
+"class": "MarkerSprite",
+"language": "GDScript",
+"path": "res://UI/Minimap/Marker/MarkerSprite.gd"
+}, {
+"base": "Control",
 "class": "Minimap",
 "language": "GDScript",
 "path": "res://UI/Minimap/Minimap.gd"
@@ -43,15 +48,22 @@ _global_script_classes=[ {
 "class": "RoomWalker",
 "language": "GDScript",
 "path": "res://Scripts/RoomWalker.gd"
+}, {
+"base": "Camera2D",
+"class": "SmartCamera",
+"language": "GDScript",
+"path": "res://Components/SmartCamera/SmartCamera.gd"
 } ]
 _global_script_class_icons={
 "Exit": "",
 "Loot": "",
 "LootTable": "",
+"MarkerSprite": "",
 "Minimap": "",
 "Player": "",
 "PositionTracker": "",
-"RoomWalker": ""
+"RoomWalker": "",
+"SmartCamera": ""
 }
 
 [application]

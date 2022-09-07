@@ -1,25 +1,23 @@
 tool
-class_name Minimap extends ViewportContainer
+class_name Minimap extends Control
 
 onready var _texture_rect: TextureRect = $ViewportTexture
-onready var _view_port: Viewport = $MinimapViewport
-onready var _tile_map: TileMap = $MinimapViewport/TileMap
-onready var _markers_parent: Node = $MinimapViewport/Markers
+onready var _view_port: Viewport = $ViewportContainer/MinimapViewport
+onready var _tile_map: TileMap = $ViewportContainer/MinimapViewport/TileMap
+onready var _markers_parent := $ViewportContainer/MinimapViewport/Markers
 
 var map: Array = [] setget _set_map
 var markers: Array = [] setget _set_markers
 
+const MarkerSprite = preload("res://UI/Minimap/Marker/MarkerSprite.tscn")
+
 class Marker:
 	var node: Node2D
-	var texture: Texture
+	var color: Color
 	
-	func _init(target_node: Node2D, texture: Texture = null):
+	func _init(target_node: Node2D, target_color: Color = Color.white):
 		node = target_node
-		texture = texture
-
-func _ready() -> void:
-	_texture_rect.set_texture(_view_port.get_texture())
-	pass
+		color = target_color
 
 func _set_map(new_map: Array) -> void:
 	map = new_map
@@ -40,14 +38,8 @@ func _update_map() -> void:
 func _update_markers() -> void:
 	_remove_markers()
 	for marker in markers:
-		var gradient_texture = GradientTexture.new()
-		var gradient = Gradient.new()
-		gradient.colors = [Color.aqua]
-		gradient_texture.gradient = gradient
-		
-		var sprite := Sprite.new()
-		sprite.texture = gradient_texture
-		sprite.region_rect = Rect2(Vector2.ZERO, Vector2.ONE * 32)
+		var sprite := MarkerSprite.instance()
+		sprite.color = marker.color
 		_markers_parent.add_child(sprite)
 		
 		var tracker := RemoteTransform2D.new()
