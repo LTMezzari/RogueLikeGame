@@ -13,18 +13,18 @@ func _ready() -> void:
 	_generate_level()
 
 func _generate_level() -> void:
-	var dimensions = borders.size
-	var walker = RoomWalker.new(Vector2(ceil(dimensions.x / 2), ceil(dimensions.y / 2)), borders)
-	var map = walker.walk(steps)
+	var dimensions := borders.size
+	var walker := RoomWalker.new(Vector2(ceil(dimensions.x / 2), ceil(dimensions.y / 2)), borders)
+	var map := walker.walk(steps)
 	
-	var player = $YSort/Player
+	var player := $YSort/Player
 	player.position = map.front() * 32
 	
-	var exit = ExitScene.instance()
+	var exit := ExitScene.instance()
 	$YSort.add_child(exit)
 	$CanvasLayer/ExitTracker.target = exit
 	exit.position = walker.get_end_room().position * 32
-	exit.connect("on_exit_reached", self, "_reset_world")
+	var _a = exit.connect("on_exit_reached", self, "_reset_world")
 	
 	walker.queue_free()
 	_minimap.map = map

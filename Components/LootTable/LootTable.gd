@@ -4,7 +4,7 @@ class_name LootTable extends Node2D
 const LootRes = preload("res://Components/LootTable/Loot/Loot.tres")
 
 export(int) var max_drops: int = 1
-export(Array, Resource) var possible_loot := [] setget set_possible_loot
+export(Array, Resource) var possible_loot: Array = [] setget set_possible_loot
 
 func set_possible_loot(value: Array) -> void:
 	possible_loot.resize(value.size())
@@ -48,7 +48,7 @@ func _create_node(loot: PackedScene) -> Node:
 	pass
 
 func _place_node(node: Node) -> void:
-	var parent = get_tree().current_scene
+	var parent := get_tree().current_scene
 	parent.add_child(node)
 	node.global_position = global_position
 	pass

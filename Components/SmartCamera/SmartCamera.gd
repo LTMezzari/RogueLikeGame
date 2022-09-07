@@ -3,7 +3,7 @@ class_name SmartCamera extends Camera2D
 
 export(NodePath) var target: NodePath setget _set_target_path
 
-onready var _remote_transform = RemoteTransform2D.new()
+onready var _remote_transform: RemoteTransform2D = RemoteTransform2D.new()
 onready var _limit_top_left: Position2D = $Limits/TopLeft
 onready var _limit_bottom_right: Position2D = $Limits/BottomRight
 

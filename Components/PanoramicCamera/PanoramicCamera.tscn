@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Components/PanoramicCamera/PanoramicCamera.gd" type="Script" id=1]
+
+[node name="PanoramicCamera" type="Camera2D"]
+zoom = Vector2( 0.996875, 1.07778 )
+script = ExtResource( 1 )
+
+[node name="Bounds" type="Node" parent="."]
+
+[node name="TopLeft" type="Position2D" parent="Bounds"]
+position = Vector2( -159.856, -97.459 )
+
+[node name="BottomRight" type="Position2D" parent="Bounds"]
+position = Vector2( 159.831, 97.3028 )

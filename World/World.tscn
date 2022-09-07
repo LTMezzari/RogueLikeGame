@@ -40,25 +40,29 @@ position = Vector2( 679.51, 365.692 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PlayerTracker" parent="CanvasLayer" instance=ExtResource( 2 )]
+visible = false
 margin_left = 1.0
 margin_right = 32.0
 margin_bottom = 14.0
-custom_colors/font_color = Color( 1, 0.0117647, 0.0117647, 1 )
-text = "(679.51001, 365.691986)"
+custom_colors/font_color = Color( 0, 1, 0.00784314, 1 )
+text = ""
 target_path = NodePath("../../YSort/Player")
+is_visible = false
 
 [node name="ExitTracker" parent="CanvasLayer" instance=ExtResource( 2 )]
+visible = false
 margin_left = 3.55157
 margin_top = 162.218
 margin_right = 34.5516
 margin_bottom = 176.218
-custom_colors/font_color = Color( 0.00392157, 0.0941176, 1, 1 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "(1073.540771, 545.614014)"
+is_visible = false
 
 [node name="Minimap" parent="CanvasLayer" instance=ExtResource( 5 )]
-margin_left = 277.517
-margin_top = 138.099
-margin_right = 317.517
-margin_bottom = 178.099
+margin_left = 277.072
+margin_top = 2.6824
+margin_right = 317.072
+margin_bottom = 42.6824
 
 [editable path="SmartCamera"]

@@ -12,14 +12,19 @@ export(float) var friction: float = 500
 export(float) var max_speed: float = 80
 
 onready var _animation_tree: AnimationTree = $AnimationTree
+onready var _attack_pivot: Node2D = $AttackPivot
 onready var _animation_state = _animation_tree["parameters/playback"]
 
 var _velocity: Vector2 = Vector2.ZERO
 var _roll_vector: Vector2 = Vector2.ZERO
+var _knockback_vector := Vector2.ZERO
 var _state = PlayerState.MOVING
+
+var _attack_radius: float
 
 func _ready() -> void:
 	_animation_tree.active = true
+	_attack_radius = _attack_pivot.position.y
 	pass
 	
 func _process(delta: float) -> void:
@@ -39,6 +44,7 @@ func _physics_process(delta: float) -> void:
 func _check_inputs(_delta: float) -> void:
 	if (Input.is_action_just_pressed("attack")):
 		var vector := _get_mouse_vector()
+		_knockback_vector = vector
 		_animation_tree["parameters/Attack/blend_position"] = vector
 		_state = PlayerState.ATTACKING
 	
@@ -46,8 +52,15 @@ func _check_inputs(_delta: float) -> void:
 		_state = PlayerState.ROLLING
 	pass
 
+func _unhandled_input(event: InputEvent) -> void:
+	if (event is InputEventMouse):
+		var vector := _get_mouse_vector()
+		
+		return
+	pass
+
 func _handle_move_state(delta: float) -> void:
-	var direction = Vector2.ZERO
+	var direction := Vector2.ZERO
 	direction.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	direction.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	direction = direction.normalized()
