@@ -416,9 +416,11 @@ blend_point_0/pos = Vector2( 0, 1 )
 blend_point_1/node = SubResource( 35 )
 blend_point_1/pos = Vector2( 0, -1 )
 blend_point_2/node = SubResource( 36 )
-blend_point_2/pos = Vector2( 1, 0 )
+blend_point_2/pos = Vector2( 1.1, 0 )
 blend_point_3/node = SubResource( 37 )
-blend_point_3/pos = Vector2( -1, 0 )
+blend_point_3/pos = Vector2( -1.1, 0 )
+min_space = Vector2( -1.1, -1.1 )
+max_space = Vector2( 1.1, 1.1 )
 
 [sub_resource type="AnimationNodeAnimation" id=19]
 animation = "IdleDown"
@@ -532,6 +534,7 @@ start_node = "Idle"
 [sub_resource type="AnimationNodeStateMachinePlayback" id=3]
 
 [node name="Player" type="KinematicBody2D"]
+collision_layer = 2
 script = ExtResource( 1 )
 
 [node name="Character" type="Sprite" parent="."]
@@ -565,8 +568,7 @@ anims/RunLeft = SubResource( 7 )
 anims/RunRight = SubResource( 4 )
 anims/RunUp = SubResource( 6 )
 
-[node name="Controller" type="AnimationTree" parent="."]
-unique_name_in_owner = true
+[node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 2 )
 anim_player = NodePath("../AnimationPlayer")
 active = true

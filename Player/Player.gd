@@ -11,7 +11,7 @@ export(float) var acceleration: float = 500
 export(float) var friction: float = 500
 export(float) var max_speed: float = 80
 
-onready var _animation_tree: AnimationTree = $"%Controller"
+onready var _animation_tree: AnimationTree = $AnimationTree
 onready var _animation_state = _animation_tree["parameters/playback"]
 
 var _velocity: Vector2 = Vector2.ZERO
@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 			_handle_attack_state(delta)
 	pass
 
-func _check_inputs(delta: float) -> void:
+func _check_inputs(_delta: float) -> void:
 	if (Input.is_action_just_pressed("attack")):
 		var vector := _get_mouse_vector()
 		_animation_tree["parameters/Attack/blend_position"] = vector
@@ -64,13 +64,13 @@ func _handle_move_state(delta: float) -> void:
 	_move_player()
 	pass
 
-func _handle_roll_state(delta: float) -> void:
+func _handle_roll_state(_delta: float) -> void:
 	_animation_state.travel("Roll")
 	_velocity = roll_speed * _roll_vector
 	_move_player()
 	pass
 
-func _handle_attack_state(delta: float) -> void:
+func _handle_attack_state(_delta: float) -> void:
 	_animation_state.travel("Attack")
 	pass
 

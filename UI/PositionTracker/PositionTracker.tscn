@@ -3,8 +3,8 @@
 [ext_resource path="res://UI/PositionTracker/PositionTracker.gd" type="Script" id=1]
 
 [node name="PositionTracker" type="Label"]
-margin_right = 39.0
-margin_bottom = 20.0
+margin_right = 38.0
+margin_bottom = 16.0
 text = "(X, Y)"
 align = 1
 valign = 1

@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "Exit",
+"language": "GDScript",
+"path": "res://Components/Exit/Exit.gd"
+}, {
 "base": "Resource",
 "class": "Loot",
 "language": "GDScript",
@@ -19,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Components/LootTable/LootTable.gd"
 }, {
+"base": "ViewportContainer",
+"class": "Minimap",
+"language": "GDScript",
+"path": "res://UI/Minimap/Minimap.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
@@ -28,12 +38,20 @@ _global_script_classes=[ {
 "class": "PositionTracker",
 "language": "GDScript",
 "path": "res://UI/PositionTracker/PositionTracker.gd"
+}, {
+"base": "Node",
+"class": "RoomWalker",
+"language": "GDScript",
+"path": "res://Scripts/RoomWalker.gd"
 } ]
 _global_script_class_icons={
+"Exit": "",
 "Loot": "",
 "LootTable": "",
+"Minimap": "",
 "Player": "",
-"PositionTracker": ""
+"PositionTracker": "",
+"RoomWalker": ""
 }
 
 [application]
@@ -128,6 +146,7 @@ attack={
 
 2d_physics/layer_1="World"
 2d_physics/layer_2="Player"
+2d_physics/layer_3="Exit"
 
 [physics]
 
