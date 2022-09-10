@@ -1,6 +1,5 @@
 class_name DungeonBuilder extends Node
 
-const DIRECTIONS: Array = [Vector2.RIGHT, Vector2.UP, Vector2.LEFT, Vector2.DOWN]
 const MIN_ROOM_SIZE: int = 4
 const MAX_ROOM_SIZE: int = 8
 const CHANGE_DIRECTION_CHANCE: float = .5
@@ -9,6 +8,7 @@ const BRANCH_CHANCE: float = .3
 var current_position: Vector2 = Vector2.ZERO
 var direction: Vector2 = Vector2.RIGHT
 var rooms: Array = []
+var branches: Array = []
 
 var max_room_size: int = MAX_ROOM_SIZE
 var min_room_size: int = MIN_ROOM_SIZE
@@ -23,7 +23,7 @@ func _init(
 	new_max_room_size: int = MAX_ROOM_SIZE,
 	new_min_room_size: int = MIN_ROOM_SIZE
 ) -> void:
-	var available_directions = DIRECTIONS.duplicate()
+	var available_directions = DungeonRoom.DIRECTIONS.duplicate()
 	available_directions.shuffle()
 	direction = available_directions.pop_front()
 	
@@ -49,7 +49,7 @@ func _build_main_path(size: int) -> bool:
 	for _i in size:
 		if (!_step()):
 			return false
-		var new_room := _create_room(current_position, DungeonCorridor.new(-direction, previous_room))
+		var new_room := _create_room(current_position, DungeonRoom.DungeonCorridor.new(-direction, previous_room))
 		rooms.append(new_room)
 		previous_room = new_room
 		continue
@@ -84,25 +84,32 @@ func _is_position_taken(position: Vector2) -> bool:
 	pass
 
 func _get_room_at(position: Vector2) -> DungeonRoom:
-	for room in rooms:
+	var all_rooms := _get_all_rooms()
+	for room in all_rooms:
 		if (room.position == position):
 			return room
 		continue
 	return null
 	pass
 
-func _change_direction(directions: Array = DIRECTIONS.duplicate()) -> Vector2:
+func _get_all_rooms() -> Array:
+	var all_rooms := rooms.duplicate()
+	all_rooms.append_array(branches)
+	return all_rooms
+	pass
+
+func _change_direction(directions: Array = DungeonRoom.DIRECTIONS.duplicate()) -> Vector2:
 	var available_directions := _get_available_directions(directions)
 	available_directions.shuffle()
 	return available_directions.pop_front()
 	pass
 
-func _create_room(room_position: Vector2, previous_room: DungeonCorridor = null) -> DungeonRoom:
+func _create_room(room_position: Vector2, previous_room: DungeonRoom.DungeonCorridor = null, room_direction: Vector2 = direction) -> DungeonRoom:
 	var has_previous_room := previous_room != null
 	var size := Vector2(randi() % max_room_size + min_room_size, randi() % max_room_size + min_room_size)
 	var new_room := DungeonRoom.new(room_position, size, previous_room)
 	if (has_previous_room):
-		previous_room.room.exits.append(DungeonCorridor.new(direction, new_room))
+		previous_room.room.exits.append(DungeonRoom.DungeonCorridor.new(room_direction, new_room))
 	return new_room
 	pass
 
@@ -111,66 +118,24 @@ func _add_branch(current_room: DungeonRoom) -> void:
 		return
 	var position := current_room.position
 	var available_directions := current_room.get_available_directions()
+	if (available_directions.empty()):
+		return
 	available_directions.shuffle()
 	var branch_direction: Vector2 = available_directions.pop_front()
 	var branch_position := position + branch_direction
 	var room_at_branch := _get_room_at(branch_position)
-	var corridor := DungeonCorridor.new(-branch_direction, current_room)
+	var corridor := DungeonRoom.DungeonCorridor.new(-branch_direction, current_room)
 	if (room_at_branch != null):
 		room_at_branch.exits.append(corridor)
+		current_room.exits.append(DungeonRoom.DungeonCorridor.new(branch_direction, room_at_branch))
 		return
-	var branch := _create_room(branch_position, corridor)
+	var branch := _create_room(branch_position, corridor, branch_direction)
+	branches.append(branch)
 	_add_branch(branch)
 	pass
 
-func _get_available_directions(directions: Array = DIRECTIONS.duplicate()) -> Array:
+func _get_available_directions(directions: Array = DungeonRoom.DIRECTIONS.duplicate()) -> Array:
 	var available_directions := directions
 	available_directions.erase(direction)
 	return available_directions
 	pass
-
-class DungeonRoom:
-	var position: Vector2
-	var size: Vector2
-	var exits: Array
-	var entrance: DungeonCorridor
-	
-	func _init(
-		new_position: Vector2,
-		new_size: Vector2,
-		new_entrance: DungeonCorridor = null,
-		new_exits: Array = []
-	) -> void:
-		position = new_position
-		size = new_size
-		entrance = new_entrance
-		exits = new_exits
-		pass
-	
-	func get_available_directions() -> Array:
-		var available_directions = DIRECTIONS.duplicate()
-		var taken_directions = get_taken_directions()
-		for direction in taken_directions:
-			available_directions.erase(direction)
-			continue
-		return available_directions
-		pass
-	
-	func get_taken_directions() -> Array:
-		var taken_directions = []
-		var corridors = exits.duplicate()
-		corridors.append(entrance)
-		for corridor in corridors:
-			taken_directions.append(corridor.direction)
-			continue
-		return taken_directions
-		pass
-
-class DungeonCorridor:
-	var direction: Vector2
-	var room: DungeonRoom
-	
-	func _init(new_direction: Vector2, new_room: DungeonRoom) -> void:
-		direction = new_direction
-		room = new_room
-		pass
