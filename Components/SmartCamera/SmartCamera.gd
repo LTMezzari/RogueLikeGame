@@ -1,13 +1,13 @@
 tool
 class_name SmartCamera extends Camera2D
 
-export(NodePath) var target: NodePath setget _set_target_path
+export(NodePath) var target_path: NodePath setget _set_target_path
 
 onready var _remote_transform: RemoteTransform2D = RemoteTransform2D.new()
 onready var _limit_top_left: Position2D = $Limits/TopLeft
 onready var _limit_bottom_right: Position2D = $Limits/BottomRight
 
-var _target_node: Node2D setget _set_target
+var target: Node2D setget _set_target
 
 func _ready() -> void:
 	_remote_transform.remote_path = get_path()
@@ -21,17 +21,17 @@ func _ready() -> void:
 	#warning-ignore:narrowing_conversion
 	limit_right = _limit_bottom_right.position.x
 	
-	self._target_node = get_node_or_null(target)
+	self.target = get_node_or_null(target_path)
 	pass
 
 func _set_target_path(new_target_path: NodePath) -> void:
-	self._target_node = get_node_or_null(new_target_path)
-	target = new_target_path
+	self.target = get_node_or_null(new_target_path)
+	target_path = new_target_path
 	pass
 
 func _set_target(new_target: Node2D) -> void:
-	_update_target(_target_node, new_target)
-	_target_node = new_target
+	_update_target(target, new_target)
+	target = new_target
 	pass
 
 func _update_target(old_target: Node2D, new_target: Node2D) -> void:

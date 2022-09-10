@@ -14,13 +14,14 @@ var rooms: Array = []
 var max_steps: int = MAX_STEPS
 var max_room_size: int = MAX_ROOM_SIZE
 
-func _init(starting_position: Vector2, new_borders: Rect2):
+func _init(starting_position: Vector2, new_borders: Rect2) -> void:
 	assert(new_borders.has_point(starting_position))
 	position = starting_position
 	step_history.append(position)
 	borders = new_borders
-	
-func walk(steps) -> Array:
+	pass
+
+func walk(steps: int) -> Array:
 	_place_room(position)
 	for step in steps:
 		if (step_since_turn >= max_steps):
@@ -28,16 +29,19 @@ func walk(steps) -> Array:
 		if (!_step()):
 			_change_directions()
 		step_history.append(position)
+		continue
 	return step_history
+	pass
 
 func _step() -> bool:
-	var target_position = position + direction
+	var target_position := position + direction
 	if (!borders.has_point(target_position)):
 		return false
 	step_since_turn += 1
 	position = target_position
 	return true
-	
+	pass
+
 func _change_directions() -> void:
 	_place_room(position)
 	step_since_turn = 0
@@ -47,28 +51,35 @@ func _change_directions() -> void:
 	direction = directions.pop_front()
 	while not borders.has_point(position + direction):
 		direction = directions.pop_front()
-		
+	pass
+
 func _place_room(room_position: Vector2) -> void:
 	var size := Vector2(randi() % max_room_size + 2, randi() % max_room_size + 2)
 	var top_left_corner := (room_position - size / 2).ceil()
 	rooms.append(_create_room(room_position, size))
 	for y in size.y:
 		for x in size.x:
-			var new_step = top_left_corner + Vector2(x, y)
+			var new_step := top_left_corner + Vector2(x, y)
 			if not borders.has_point(new_step):
 				continue
 			step_history.append(new_step)
-		
+			continue
+		continue
+	pass
+
 func _create_room(room_position: Vector2, size: Vector2) -> Dictionary:
 	return {
 		position = room_position,
 		size = size
 	}
-	
+	pass
+
 func get_end_room() -> Dictionary:
 	var end_room = rooms.pop_front()
 	var starting_position = step_history.front()
 	for room in rooms:
 		if (starting_position.distance_to(room.position) > starting_position.distance_to(end_room.position)):
 			end_room = room
+		continue
 	return end_room
+	pass

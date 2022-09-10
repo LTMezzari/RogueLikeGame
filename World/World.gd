@@ -11,6 +11,7 @@ onready var _minimap := $CanvasLayer/Minimap
 func _ready() -> void:
 	#randomize()
 	_generate_level()
+	pass
 
 func _generate_level() -> void:
 	var dimensions := borders.size
@@ -27,14 +28,18 @@ func _generate_level() -> void:
 	var _a = exit.connect("on_exit_reached", self, "_reset_world")
 	
 	walker.queue_free()
-	_minimap.map = map
 	_minimap.markers = [
 		Minimap.Marker.new(player, Color.green),
 		Minimap.Marker.new(exit, Color.red),
 	]
 	for location in map:
 		_tile_map.set_cellv(location, -1)
+		continue
 	_tile_map.update_bitmask_region(borders.position, borders.end)
+	var clone := _tile_map.duplicate()
+	_minimap.map = clone
+	pass
 	
 func _reset_world() -> void:
 	var _a = get_tree().reload_current_scene()
+	pass

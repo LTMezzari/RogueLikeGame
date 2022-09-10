@@ -14,6 +14,8 @@ func set_possible_loot(value: Array) -> void:
 			continue
 		possible_loot[i] = LootRes.duplicate()
 		possible_loot[i].resource_name = "Loot " + str(i + 1)
+		continue
+	pass
 
 func drop_loot() -> Array:
 	var loot := roll_loot()
@@ -24,6 +26,8 @@ func drop_loot() -> Array:
 			var instance := _create_node(item.drop)
 			_place_node(item)
 			loot_items.append(item)
+			continue
+		continue
 	return loot_items
 	pass
 
@@ -40,6 +44,7 @@ func roll_loot() -> Array:
 		if (rand_range(0, 1) > chance):
 			continue
 		drops.append(loot)
+		continue
 	return drops
 	pass
 

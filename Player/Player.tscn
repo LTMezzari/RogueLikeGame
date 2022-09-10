@@ -1,7 +1,9 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Player.png" type="Texture" id=2]
+[ext_resource path="res://Components/Hurtbox/Hurtbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Components/Hitbox/Hitbox.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=50]
 radius = 3.48458
@@ -36,6 +38,18 @@ tracks/1/keys = {
 "method": "_reset_state"
 } ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackPivot/Hitbox:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="Animation" id=26]
 resource_name = "AttackLeft"
@@ -65,6 +79,18 @@ tracks/1/keys = {
 "args": [  ],
 "method": "_reset_state"
 } ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackPivot/Hitbox:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=24]
@@ -96,6 +122,18 @@ tracks/1/keys = {
 "method": "_reset_state"
 } ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackPivot/Hitbox:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="Animation" id=25]
 resource_name = "AttackUp"
@@ -125,6 +163,18 @@ tracks/1/keys = {
 "args": [  ],
 "method": "_reset_state"
 } ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackPivot/Hitbox:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=14]
@@ -209,6 +259,30 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 1 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackPivot/Hitbox:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hurtbox:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=31]
 resource_name = "RollDown"
@@ -238,6 +312,18 @@ tracks/1/keys = {
 "args": [  ],
 "method": "_reset_state"
 } ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hurtbox:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=30]
@@ -269,6 +355,18 @@ tracks/1/keys = {
 "method": "_reset_state"
 } ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hurtbox:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=28]
 resource_name = "RollRight"
@@ -299,6 +397,18 @@ tracks/1/keys = {
 "method": "_reset_state"
 } ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hurtbox:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [sub_resource type="Animation" id=29]
 resource_name = "RollUp"
@@ -328,6 +438,18 @@ tracks/1/keys = {
 "args": [  ],
 "method": "_reset_state"
 } ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hurtbox:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -536,8 +658,12 @@ start_node = "Idle"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=3]
 
-[sub_resource type="CapsuleShape2D" id=53]
+[sub_resource type="CapsuleShape2D" id=55]
 radius = 13.0
+
+[sub_resource type="CapsuleShape2D" id=56]
+radius = 5.47
+height = 9.43
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
@@ -577,7 +703,6 @@ anims/RunUp = SubResource( 6 )
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 2 )
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/playback = SubResource( 3 )
 parameters/Attack/blend_position = Vector2( -0.0017432, 0.996535 )
 parameters/Idle/blend_position = Vector2( 0, 0 )
@@ -589,8 +714,15 @@ position = Vector2( 0, 20 )
 
 [node name="Position2D" type="Position2D" parent="AttackPivot"]
 
-[node name="Area2D" type="Area2D" parent="AttackPivot"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/Area2D"]
+[node name="Hitbox" parent="AttackPivot" instance=ExtResource( 4 )]
 rotation = 1.5708
-shape = SubResource( 53 )
+collision_layer = 16
+collision_mask = 32
+shape = SubResource( 55 )
+disabled = true
+
+[node name="Hurtbox" parent="." instance=ExtResource( 3 )]
+collision_layer = 8
+collision_mask = 64
+shape = SubResource( 56 )
+invincibility_time = 0.5
