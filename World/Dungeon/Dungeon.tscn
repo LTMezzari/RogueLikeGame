@@ -33,10 +33,11 @@ position = Vector2( 1312, 768 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="PositionTracker" parent="CanvasLayer" instance=ExtResource( 4 )]
-margin_left = 246.38
-margin_top = 159.951
-margin_right = 284.38
-margin_bottom = 175.951
+margin_left = 280.71
+margin_top = 162.058
+margin_right = 318.71
+margin_bottom = 178.058
+grow_horizontal = 0
 custom_colors/font_color = Color( 0.054902, 0, 1, 1 )
 
 [node name="Minimap" parent="CanvasLayer" instance=ExtResource( 5 )]

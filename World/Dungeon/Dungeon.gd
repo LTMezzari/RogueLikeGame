@@ -1,6 +1,6 @@
 class_name Dungeon extends Node2D
 
-const PlayerScene: PackedScene = preload("res://Player/Player.tscn")
+const PlayerScene: PackedScene = preload("res://Entities/Player/Player.tscn")
 const ExitScene: PackedScene = preload("res://Components/Exit/Exit.tscn")
 
 export(int) var dungeon_main_size: int = 6
@@ -17,7 +17,7 @@ onready var _minimap_tiles: TileMap = _tile_map.duplicate()
 var markers: Array = []
 
 func _ready() -> void:
-	randomize()
+	#randomize()
 	var dimensions := borders.size
 	var start_position := Vector2(ceil(dimensions.x / 2), ceil(dimensions.y / 2))
 	if  (not DungeonController.was_built):

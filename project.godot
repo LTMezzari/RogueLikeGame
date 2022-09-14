@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Bat",
+"language": "GDScript",
+"path": "res://Entities/Bat/Bat.gd"
+}, {
 "base": "Node2D",
 "class": "Dungeon",
 "language": "GDScript",
@@ -67,7 +72,12 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
-"path": "res://Player/Player.gd"
+"path": "res://Entities/Player/Player.gd"
+}, {
+"base": "Area2D",
+"class": "PlayerDetectionZone",
+"language": "GDScript",
+"path": "res://Components/PlayerDetectionZone/PlayerDetectionZone.gd"
 }, {
 "base": "Label",
 "class": "PositionTracker",
@@ -83,8 +93,19 @@ _global_script_classes=[ {
 "class": "SmartCamera",
 "language": "GDScript",
 "path": "res://Components/SmartCamera/SmartCamera.gd"
+}, {
+"base": "Node",
+"class": "Stats",
+"language": "GDScript",
+"path": "res://Components/Stats/Stats.gd"
+}, {
+"base": "Node2D",
+"class": "WanderController",
+"language": "GDScript",
+"path": "res://Entities/Bat/IA/WanderController.gd"
 } ]
 _global_script_class_icons={
+"Bat": "",
 "Dungeon": "",
 "DungeonBuilder": "",
 "DungeonRoom": "",
@@ -97,9 +118,12 @@ _global_script_class_icons={
 "Minimap": "",
 "Panoramic": "",
 "Player": "",
+"PlayerDetectionZone": "",
 "PositionTracker": "",
 "RoomWalker": "",
-"SmartCamera": ""
+"SmartCamera": "",
+"Stats": "",
+"WanderController": ""
 }
 
 [application]
@@ -219,6 +243,7 @@ move_down={
 2d_physics/layer_5="PlayerHitbox"
 2d_physics/layer_6="EnemyHurtbox"
 2d_physics/layer_7="EnemyHitbox"
+2d_physics/layer_8="SoftCollision"
 
 [physics]
 

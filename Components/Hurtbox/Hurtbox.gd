@@ -6,7 +6,7 @@ signal invincibility_started
 #warning-ignore:unused_signal
 signal invincibility_ended
 
-export(Shape2D) var shape: Shape2D
+export(Shape2D) var shape: Shape2D setget set_shape
 export(float) var invincibility_time: float = 0
 export(bool) var disabled: bool setget set_disabled
 
@@ -18,6 +18,12 @@ var is_invincible: bool = false
 func _ready() -> void:
 	_collision_shape.shape = shape
 	_collision_shape.disabled = disabled
+	pass
+
+func set_shape(new_shape: Shape2D) -> void:
+	shape = new_shape
+	if (_collision_shape != null):
+		_collision_shape.shape = shape
 	pass
 
 func set_invincible(value: bool) -> void:

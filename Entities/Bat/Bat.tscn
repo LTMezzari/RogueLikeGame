@@ -1,0 +1,91 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Entities/Bat/Bat.gd" type="Script" id=1]
+[ext_resource path="res://Entities/Bat/Bat.png" type="Texture" id=2]
+[ext_resource path="res://Components/Hitbox/Hitbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Components/Hurtbox/Hurtbox.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Components/Stats/Stats.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Entities/Bat/IA/WanderController.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Components/PlayerDetectionZone/PlayerDetectionZone.tscn" type="PackedScene" id=7]
+
+[sub_resource type="CircleShape2D" id=11]
+radius = 54.0
+
+[sub_resource type="CircleShape2D" id=8]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id=9]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id=10]
+radius = 3.0
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 16, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 0, 16, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 16, 24 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "Flying",
+"speed": 10.0
+} ]
+
+[node name="Bat" type="KinematicBody2D"]
+position = Vector2( 137.353, 78.4877 )
+collision_layer = 128
+script = ExtResource( 1 )
+
+[node name="PlayerDetectionZone" parent="." instance=ExtResource( 7 )]
+shape = SubResource( 11 )
+
+[node name="WanderController" parent="." instance=ExtResource( 6 )]
+
+[node name="Hitbox" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -11 )
+collision_layer = 64
+collision_mask = 8
+shape = SubResource( 8 )
+
+[node name="Hurtbox" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, -11 )
+collision_layer = 32
+collision_mask = 0
+shape = SubResource( 9 )
+
+[node name="Collission" type="CollisionShape2D" parent="."]
+modulate = Color( 0.509804, 0.517647, 0.976471, 1 )
+rotation = 1.5708
+shape = SubResource( 10 )
+
+[node name="Flying" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -9 )
+frames = SubResource( 6 )
+animation = "Flying"
+playing = true
+
+[node name="Stats" parent="." instance=ExtResource( 5 )]
+max_health = 3
+health = 3
+
+[connection signal="on_player_found" from="PlayerDetectionZone" to="." method="_on_player_found"]
+[connection signal="on_player_lost" from="PlayerDetectionZone" to="." method="_reset_state"]
+[connection signal="on_target_changed" from="WanderController" to="." method="_on_target_changed"]
+[connection signal="on_health_reached_zero" from="Stats" to="." method="_kill_self"]

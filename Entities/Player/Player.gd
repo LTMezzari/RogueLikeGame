@@ -10,7 +10,7 @@ export(float) var roll_speed: float = 125
 export(float) var acceleration: float = 500
 export(float) var friction: float = 500
 export(float) var max_speed: float = 80
-export(float) var _attack_center_range: float = 20
+export(float) var attack_center_range: float = 20
 
 onready var _animation_tree: AnimationTree = $AnimationTree
 onready var _attack_pivot: Node2D = $AttackPivot
@@ -54,7 +54,7 @@ func _check_inputs(_delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if (event is InputEventMouse):
 		var direction_vector := _get_mouse_vector()
-		var pivot_position := direction_vector * _attack_center_range
+		var pivot_position := direction_vector * attack_center_range
 		_attack_pivot.rotation = position.angle_to(pivot_position) + 90
 		_attack_pivot.position = pivot_position
 		return
